@@ -1,0 +1,13 @@
+services:
+  glances:
+    image: dotyigit/glances:latest
+    restart: always
+    pid: "host"
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro"
+    environment:
+      - TZ=${TZ:-Europe/Paris}
+      - "GLANCES_OPT=-C /glances/conf/glances.conf -w"
